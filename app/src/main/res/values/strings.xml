@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ObjectiveQuiz</string>
+    <string name="question">"Is this is good question?"</string>
+    <string name="trueText">Yes</string>
+    <string name="falseText">No</string>
+    <string name="nextText">Next</string>
+</resources>
