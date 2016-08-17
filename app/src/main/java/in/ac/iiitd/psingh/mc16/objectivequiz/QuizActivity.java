@@ -1,7 +1,6 @@
 package in.ac.iiitd.psingh.mc16.objectivequiz;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import java.util.Random;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -21,12 +17,13 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mTextViewer;
-   // private int mCurrentNum;
-    Random r = new Random();
+    //Creating the random object to generate the random prime number when a new question is created.
+    private Random r = new Random();
     private String newQuestion;
     private int num;
     private static final String TAG = "QuizActivity";
-    //private static final String NUM = "num";
+
+    //Functionality of the app when the app is created.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +32,8 @@ public class QuizActivity extends AppCompatActivity {
         newQuestion = createQuestion();
         mTextViewer = (TextView) findViewById(R.id.textViewer);
         mTextViewer.setText(newQuestion);
+
+        //Functionality for yes button
         mTrueButton = (Button) findViewById(R.id.TrueButton);
         mTrueButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,19 +42,18 @@ public class QuizActivity extends AppCompatActivity {
                 if(checkPrime(num))
                 {
                     Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.show();
                 }
                 else
                 {
                     Toast toast = Toast.makeText(context, "Incorrect!!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.show();
                 }
                 Log.d(TAG, "Clicked True");
             }
         });
 
+        //Functionality for No button
         mFalseButton = (Button) findViewById(R.id.FalseButton);
         mFalseButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,6 +73,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        //Functionality for next button
         mNextButton = (Button) findViewById(R.id.NextButton);
         mTextViewer = (TextView) findViewById(R.id.textViewer);
         mNextButton.setOnClickListener(new View.OnClickListener(){
@@ -88,6 +87,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
+    //Method to check if the number is prime
     public boolean checkPrime(int number){
         for(int i=2; i<=number/2; i++)
         {
@@ -98,12 +98,14 @@ public class QuizActivity extends AppCompatActivity {
         return true;
     }
 
-    public String createQuestion(){
+    //Method to create new question
+    private String createQuestion(){
         num = r.nextInt((999) + 1);
         newQuestion = "Is " + num + " a prime number?";
         return newQuestion;
     }
 
+    //Saving the state of the app so that it can be restored when the screen is rotated or if the app is resumed.
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
@@ -115,6 +117,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG, "Inside onSaveInstance");
     }
 
+    //Restoring the state of the app when the screen is rotated or when the app is resumed. onRestoreInstanceState is called before the onResume method.
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
