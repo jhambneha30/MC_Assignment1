@@ -1,6 +1,7 @@
 package in.ac.iiitd.psingh.mc16.objectivequiz;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import java.util.Random;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     private String newQuestion;
     private int num;
     private static final String TAG = "QuizActivity";
+    int flag=0;
 
     //Functionality of the app when the app is created.
     @Override
@@ -29,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        flag=0;
         newQuestion = createQuestion();
         mTextViewer = (TextView) findViewById(R.id.textViewer);
         mTextViewer.setText(newQuestion);
@@ -38,16 +42,19 @@ public class QuizActivity extends AppCompatActivity {
         mTrueButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                flag=1;
                 Context context = getApplicationContext();
                 if(checkPrime(num))
                 {
                     Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
                     toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
                 }
                 else
                 {
                     Toast toast = Toast.makeText(context, "Incorrect!!", Toast.LENGTH_SHORT);
                     toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
                 }
                 Log.d(TAG, "Clicked True");
             }
@@ -58,16 +65,19 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                flag=1;
                 Context context = getApplicationContext();
                 if(!checkPrime(num))
                 {
                     Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
                     toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
                 }
                 else
                 {
                     Toast toast = Toast.makeText(context, "Incorrect!!", Toast.LENGTH_SHORT);
                     toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
                 }
                 Log.d(TAG, "Clicked False");
             }
@@ -79,10 +89,19 @@ public class QuizActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                if(flag==0)
+                {
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, "Previous question was unanswered!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                }
+                flag=0;
                 newQuestion = createQuestion();
                 mTextViewer.setText(newQuestion);
                 Log.d(TAG, "Clicked Next");
             }
+
         });
 
     }
