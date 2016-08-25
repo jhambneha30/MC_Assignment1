@@ -31,13 +31,15 @@
             android:layout_height="wrap_content"
             android:text="@string/trueText"
             android:drawableStart="@drawable/arrow_left"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/arrow_left" />
         <Button
             android:id="@+id/FalseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/falseText"
             android:drawableEnd="@drawable/arrow_right"
+            android:drawableRight="@drawable/arrow_right"
             android:textSize="16dp" />
     </LinearLayout>
     <Button
@@ -46,5 +48,24 @@
         android:layout_height="wrap_content"
         android:text="@string/nextText"
         android:textSize="16dp" />
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="true">
+        <Button
+            android:id="@+id/HintButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hintText"
+            android:textSize="16dp"
+            android:onClick="sendMessageToHint" />
+        <Button
+            android:id="@+id/CheatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cheatText"
+            android:textSize="16dp"
+            android:onClick="sendMessageToCheat" />
     </LinearLayout>
+</LinearLayout>

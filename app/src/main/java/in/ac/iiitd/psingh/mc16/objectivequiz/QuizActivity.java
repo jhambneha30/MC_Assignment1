@@ -1,7 +1,7 @@
 package in.ac.iiitd.psingh.mc16.objectivequiz;
 
 import android.content.Context;
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +9,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import java.util.Random;
+
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
+
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -24,7 +26,9 @@ public class QuizActivity extends AppCompatActivity {
     private String newQuestion;
     private int num;
     private static final String TAG = "QuizActivity";
+    public final static String EXTRA_MESSAGE ="in.ac.iiitd.psingh.mc16.objectivequiz.MESSAGE";
     int flag=0;
+    int requestCodeHint;
 
     //Functionality of the app when the app is created.
     @Override
@@ -140,11 +144,52 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
-//        num=savedInstanceState.getInt(NUM);
         final TextView ques = (TextView)findViewById(R.id.textViewer);
         CharSequence oldQues = savedInstanceState.getCharSequence("savedText");
         ques.setText(oldQues);
         Log.i(TAG, "Inside onRestoreInstance");
+    }
+
+    //sendMessageToHint method is used to send data to the new hint activity
+    public void sendMessageToHint(View view)
+    {
+        Intent intentHint = new Intent(this, HintActivity.class);
+        startActivityForResult(intentHint, requestCodeHint);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCodeHint, Intent data )
+    {
+        if(requestCode == requestCodeHint) {
+            if (resultCodeHint == RESULT_OK) {
+                Context context = getApplicationContext();
+                String str=data.getStringExtra("isSeen");
+                if(str.equals("1"))
+                {
+                    Toast toast = Toast.makeText(context, "You have seen the hint!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                }
+                if(str.equals("2"))
+                {
+                    Toast toast = Toast.makeText(context, "You have cheated!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                }
+            }
+         }
+    }
+
+    //sendMessageToCheat method is used to send data to the new hint activity
+    public void sendMessageToCheat(View view)
+    {
+
+        Intent intentCheat = new Intent(this, CheatActivity.class);
+        startActivityForResult(intentCheat, requestCodeHint);
+        //startActivity(intentCheat);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+//        String message = "A prime number has only two factors: 1 and the number itself!";
+        intentCheat.putExtra(EXTRA_MESSAGE, num);
     }
 
     @Override

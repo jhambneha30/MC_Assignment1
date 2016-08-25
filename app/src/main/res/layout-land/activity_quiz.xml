@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="#FEBE9C"
   >
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +23,29 @@
             android:textSize="16dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal|bottom">
+        <Button
+            android:id="@+id/HintButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hintText"
+            android:textSize="16dp"
+            android:onClick="sendMessageToHint"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:id="@+id/CheatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cheatText"
+            android:textSize="16dp"
+            android:onClick="sendMessageToCheat"
+            android:layout_gravity="left|top" />
+    </LinearLayout>
     <TextView
         android:id="@+id/textViewer"
         android:layout_width="wrap_content"
@@ -42,4 +64,7 @@
         android:text="@string/nextText"
         android:layout_gravity="right|bottom"
         android:textSize="16dp"/>
+
+
+
 </FrameLayout>
