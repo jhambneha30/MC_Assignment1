@@ -7,4 +7,5 @@
     <string name="hintText">Hint</string>
     <string name="cheatText">Cheat</string>
     <string name="showHintText">Show Hint</string>
+    <string name="showCheatText">Show Answer</string>
 </resources>

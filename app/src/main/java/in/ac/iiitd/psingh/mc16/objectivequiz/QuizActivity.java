@@ -28,7 +28,8 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
     public final static String EXTRA_MESSAGE ="in.ac.iiitd.psingh.mc16.objectivequiz.MESSAGE";
     int flag=0;
-    int requestCodeHint;
+    int requestCodeHint=1;
+    int requestCodeCheat=2;
 
     //Functionality of the app when the app is created.
     @Override
@@ -157,6 +158,19 @@ public class QuizActivity extends AppCompatActivity {
         startActivityForResult(intentHint, requestCodeHint);
     }
 
+
+    //sendMessageToCheat method is used to send data to the new hint activity
+    public void sendMessageToCheat(View view)
+    {
+
+        Intent intentCheat = new Intent(this, CheatActivity.class);
+        startActivityForResult(intentCheat, requestCodeCheat);
+        //startActivity(intentCheat);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+//        String message = "A prime number has only two factors: 1 and the number itself!";
+        intentCheat.putExtra(EXTRA_MESSAGE, num);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCodeHint, Intent data )
     {
@@ -170,27 +184,22 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
                 }
-                if(str.equals("2"))
-                {
+
+            }
+        }
+        else if(requestCode == requestCodeCheat){
+            if (resultCodeHint == RESULT_OK) {
+                Context context = getApplicationContext();
+                String str = data.getStringExtra("isSeen");
+                if (str.equals("2")) {
                     Toast toast = Toast.makeText(context, "You have cheated!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 65);
                 }
             }
-         }
+        }
     }
 
-    //sendMessageToCheat method is used to send data to the new hint activity
-    public void sendMessageToCheat(View view)
-    {
-
-        Intent intentCheat = new Intent(this, CheatActivity.class);
-        startActivityForResult(intentCheat, requestCodeHint);
-        //startActivity(intentCheat);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-//        String message = "A prime number has only two factors: 1 and the number itself!";
-        intentCheat.putExtra(EXTRA_MESSAGE, num);
-    }
 
     @Override
     public void onStart()

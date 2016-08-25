@@ -14,9 +14,12 @@ public class CheatActivity extends AppCompatActivity {
     private Button mShowAnsButton;
     private TextView mCheatViewer;
     private int flag = 0;
+    public int isPrime =1;
     private static final String TAG = "HintActivity";
+    public static String ans = "";
+    public static String message = "";
 
-    TextView textView = new TextView(this);
+   // TextView textView = new TextView(this);
 //    textView.setTextSize(40);
 //    textView.setText(message);
 //    ViewGroup layout = (ViewGroup) findViewById(R.id.activity_hint);
@@ -27,8 +30,14 @@ public class CheatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cheat);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(QuizActivity.EXTRA_MESSAGE);
-
+        message = intent.getStringExtra(QuizActivity.EXTRA_MESSAGE);
+        int number = Integer.parseInt(message);
+        for(int i=2; i<=number/2; i++)
+        {
+            if(number % i == 0){
+                isPrime=0;
+            }
+        }
         mCheatViewer = (TextView) findViewById(R.id.cheatViewer);
 
 
@@ -36,9 +45,17 @@ public class CheatActivity extends AppCompatActivity {
         mShowAnsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flag = 1;
+                flag = 2;
                 //Context context = getApplicationContext();
-                mCheatViewer.setText("A prime number has only two factors: 1 and the number itself!");
+                if(isPrime==1)
+                {
+                    ans = message + " is prime.";
+                }
+                else if(isPrime==0)
+                {
+                    ans = message + " is not prime.";
+                }
+                mCheatViewer.setText(ans);
                 Log.d(TAG, "Clicked Show Hint");
             }
         });
