@@ -2,6 +2,7 @@ package in.ac.iiitd.psingh.mc16.objectivequiz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,7 @@ public class QuizActivity extends AppCompatActivity {
     private int num;
     String str;
     private static final String TAG = "QuizActivity";
-    public final static String EXTRA_MESSAGE ="in.ac.iiitd.psingh.mc16.objectivequiz.MESSAGE";
+    //public final static String EXTRA_MESSAGE ="in.ac.iiitd.psingh.mc16.objectivequiz.MESSAGE";
     int flag=0;
     int requestCodeHint=1;
     int requestCodeCheat=2;
@@ -57,13 +58,13 @@ public class QuizActivity extends AppCompatActivity {
                 {
                     Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
                 else
                 {
                     Toast toast = Toast.makeText(context, "Incorrect!!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
                 Log.d(TAG, "Clicked True");
             }
@@ -80,13 +81,13 @@ public class QuizActivity extends AppCompatActivity {
                 {
                     Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
                 else
                 {
                     Toast toast = Toast.makeText(context, "Incorrect!!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
                 Log.d(TAG, "Clicked False");
             }
@@ -103,7 +104,7 @@ public class QuizActivity extends AppCompatActivity {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Previous question was unanswered!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
                 flag=0;
                 newQuestion = createQuestion();
@@ -180,7 +181,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG, "Inside onRestoreInstance");
     }
 
-
+    //Function to receive the result from the hint activity and the cheat activity
     @Override
     public void onActivityResult(int requestCode, int resultCodeHint, Intent data )
     {
@@ -192,7 +193,7 @@ public class QuizActivity extends AppCompatActivity {
                 {
                     Toast toast = Toast.makeText(context, "You have seen the hint!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 2);
                 }
 
             }
@@ -204,12 +205,18 @@ public class QuizActivity extends AppCompatActivity {
                 {
                     Toast toast = Toast.makeText(context, "You have cheated!", Toast.LENGTH_SHORT);
                     toast.show();
-                    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 65);
+                    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 2);
                 }
             }
         }
     }
 
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        setContentView(R.layout.activity_quiz);
+//
+//        super.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     public void onStart()

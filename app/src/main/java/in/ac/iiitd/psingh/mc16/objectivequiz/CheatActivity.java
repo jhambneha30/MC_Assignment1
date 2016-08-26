@@ -20,20 +20,17 @@ public class CheatActivity extends AppCompatActivity {
     public static String ans = "";
     public static String message = "";
 
-   // TextView textView = new TextView(this);
-//    textView.setTextSize(40);
-//    textView.setText(message);
-//    ViewGroup layout = (ViewGroup) findViewById(R.id.activity_hint);
-//    layout.addView(textView);
+   //The following function is called when the cheat activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
+        //Receiving data from main activity
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
             message = extras.getString("EXTRA_MESSAGE");
         }
-
+        //Setting the content to be shown when the "Show Answer" button is clicked
         mCheatViewer = (TextView) findViewById(R.id.CheatViewer);
 
         mShowAnsButton = (Button) findViewById(R.id.ShowAnsButton);
@@ -42,10 +39,10 @@ public class CheatActivity extends AppCompatActivity {
             public void onClick(View view) {
                 flag = "yes";
 
-                if (message.equals("1")) {
+                if (message.equals("yes")) {
                     mCheatViewer.setText("It is prime.");
                 }
-                else if (message.equals("0")) {
+                else if (message.equals("no")) {
                     mCheatViewer.setText("It is not prime.");
                 }
 
@@ -53,7 +50,7 @@ public class CheatActivity extends AppCompatActivity {
 
             }
         });
-
+        //Back button to go back to the main Quiz activity
         mBackCheatButton = (Button) findViewById(R.id.BackCheatButton);
         mBackCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +65,14 @@ public class CheatActivity extends AppCompatActivity {
 
 
     }
-
+    //Saving instance so that app is not reset on screen rotation
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         final TextView answer = (TextView)findViewById(R.id.CheatViewer);
         CharSequence oldAns = answer.getText();
         savedInstanceState.putCharSequence("savedText", oldAns);
+        savedInstanceState.putCharSequence("savedFlag", flag);
         Log.i(TAG, "Inside onSaveInstance");
     }
 
@@ -84,6 +82,7 @@ public class CheatActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         final TextView ques = (TextView)findViewById(R.id.CheatViewer);
         CharSequence oldAns = savedInstanceState.getCharSequence("savedText");
+        CharSequence oldFlag = savedInstanceState.getCharSequence("savedFlag");
         ques.setText(oldAns);
         Log.i(TAG, "Inside onRestoreInstance");
     }

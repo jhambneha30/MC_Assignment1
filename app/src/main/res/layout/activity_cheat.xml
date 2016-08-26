@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="#FEBE9C"
     tools:context="in.ac.iiitd.psingh.mc16.objectivequiz.CheatActivity">
     <Button
         android:id="@+id/ShowAnsButton"

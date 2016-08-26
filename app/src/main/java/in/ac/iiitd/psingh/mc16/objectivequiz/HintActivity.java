@@ -18,12 +18,12 @@ public class HintActivity extends AppCompatActivity {
     private Button mBackHintButton;
     private String flag = "no";
     private static final String TAG = "HintActivity";
-
+    //The following function is called when the hint activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hint);
-
+        //Setting the content to be shown when the "Show Hint" button is clicked
         mHintViewer = (TextView) findViewById(R.id.HintViewer);
 
         mShowHintButton = (Button) findViewById(R.id.ShowHintButton);
@@ -37,7 +37,7 @@ public class HintActivity extends AppCompatActivity {
 
             }
         });
-
+        //Back button to go back to the main Quiz activity
         mBackHintButton = (Button) findViewById(R.id.BackHintButton);
         mBackHintButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +52,14 @@ public class HintActivity extends AppCompatActivity {
 
 
     }
-
+    //Saving instance so that app is not reset on screen rotation
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         final TextView ques = (TextView)findViewById(R.id.HintViewer);
         CharSequence oldHint = ques.getText();
         savedInstanceState.putCharSequence("savedText", oldHint);
+        savedInstanceState.putCharSequence("savedFlag", flag);
         Log.i(TAG, "Inside onSaveInstance");
     }
 
@@ -68,8 +69,8 @@ public class HintActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         final TextView ques = (TextView)findViewById(R.id.HintViewer);
         CharSequence oldHint = savedInstanceState.getCharSequence("savedText");
+        CharSequence oldFlag = savedInstanceState.getCharSequence("savedFlag");
         ques.setText(oldHint);
-        Log.i(TAG, "Inside onRestoreInstance");
     }
 
     @Override

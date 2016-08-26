@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="#FEBE9C"
     tools:context="in.ac.iiitd.psingh.mc16.objectivequiz.HintActivity">
     <Button
         android:id="@+id/ShowHintButton"
@@ -22,8 +23,7 @@
         android:id="@+id/HintViewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Hint appears here" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
     <Button
         android:id="@+id/BackHintButton"
         android:layout_width="wrap_content"
