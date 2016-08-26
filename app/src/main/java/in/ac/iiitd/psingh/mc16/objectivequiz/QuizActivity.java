@@ -21,15 +21,19 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mTextViewer;
+    private Button mHintButton;
+    private Button mCheatButton;
     //Creating the random object to generate the random prime number when a new question is created.
     private Random r = new Random();
     private String newQuestion;
     private int num;
+    String str;
     private static final String TAG = "QuizActivity";
     public final static String EXTRA_MESSAGE ="in.ac.iiitd.psingh.mc16.objectivequiz.MESSAGE";
     int flag=0;
     int requestCodeHint=1;
     int requestCodeCheat=2;
+    public String isPrime ="yes";
 
     //Functionality of the app when the app is created.
     @Override
@@ -109,6 +113,30 @@ public class QuizActivity extends AppCompatActivity {
 
         });
 
+        //Functionality for hint button
+        mHintButton = (Button) findViewById(R.id.HintButton);
+        mHintButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intentHint = new Intent(QuizActivity.this, HintActivity.class);
+                startActivityForResult(intentHint, requestCodeHint);
+            }
+
+        });
+
+        //Functionality for cheat button
+        mCheatButton = (Button) findViewById(R.id.CheatButton);
+        mCheatButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intentCheat = new Intent(QuizActivity.this, CheatActivity.class);
+                intentCheat.putExtra("EXTRA_MESSAGE", isPrime);
+                startActivityForResult(intentCheat, requestCodeCheat);
+
+            }
+
+        });
+
     }
 
     //Method to check if the number is prime
@@ -116,6 +144,7 @@ public class QuizActivity extends AppCompatActivity {
         for(int i=2; i<=number/2; i++)
         {
             if(number % i == 0){
+                isPrime="no";
                 return false;
             }
         }
@@ -151,34 +180,15 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG, "Inside onRestoreInstance");
     }
 
-    //sendMessageToHint method is used to send data to the new hint activity
-    public void sendMessageToHint(View view)
-    {
-        Intent intentHint = new Intent(this, HintActivity.class);
-        startActivityForResult(intentHint, requestCodeHint);
-    }
-
-
-    //sendMessageToCheat method is used to send data to the new hint activity
-    public void sendMessageToCheat(View view)
-    {
-
-        Intent intentCheat = new Intent(this, CheatActivity.class);
-        startActivityForResult(intentCheat, requestCodeCheat);
-        //startActivity(intentCheat);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-//        String message = "A prime number has only two factors: 1 and the number itself!";
-        intentCheat.putExtra(EXTRA_MESSAGE, num);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCodeHint, Intent data )
     {
+        str=data.getStringExtra("isSeen");
         if(requestCode == requestCodeHint) {
             if (resultCodeHint == RESULT_OK) {
                 Context context = getApplicationContext();
-                String str=data.getStringExtra("isSeen");
-                if(str.equals("1"))
+                if(str.equals("yes"))
                 {
                     Toast toast = Toast.makeText(context, "You have seen the hint!", Toast.LENGTH_SHORT);
                     toast.show();
@@ -190,8 +200,8 @@ public class QuizActivity extends AppCompatActivity {
         else if(requestCode == requestCodeCheat){
             if (resultCodeHint == RESULT_OK) {
                 Context context = getApplicationContext();
-                String str = data.getStringExtra("isSeen");
-                if (str.equals("2")) {
+                if (str.equals("yes"))
+                {
                     Toast toast = Toast.makeText(context, "You have cheated!", Toast.LENGTH_SHORT);
                     toast.show();
                     toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 65);

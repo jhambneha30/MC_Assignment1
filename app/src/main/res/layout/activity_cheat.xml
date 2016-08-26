@@ -16,14 +16,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/showCheatText"
-        android:textSize="16dp"
-        android:onClick="showHint" />
+        android:textSize="16dp" />
     <TextView
-        android:id="@+id/cheatViewer"
+        android:id="@+id/CheatViewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Answer appears here"
         />
+    <Button
+        android:id="@+id/BackCheatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:textSize="16dp" />
 
 </LinearLayout>
